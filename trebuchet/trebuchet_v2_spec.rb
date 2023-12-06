@@ -1,5 +1,5 @@
 require 'rspec'
-require './trebuchet_v2'
+require_relative './trebuchet_v2'
 
 RSpec.describe TrebuchetV2 do
   describe '.run' do

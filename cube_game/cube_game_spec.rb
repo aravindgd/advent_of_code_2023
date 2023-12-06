@@ -1,5 +1,5 @@
 require 'rspec'
-require './cube_game'
+require_relative './cube_game'
 
 describe CubeGame do
 
