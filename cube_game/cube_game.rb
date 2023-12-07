@@ -11,7 +11,7 @@ class CubeGame
   def games
     split_input = input.split("\n").map(&:strip).reject(&:empty?)
 
-    split_input.map do | game_data|
+    split_input.map do |game_data|
       structurize_game_data(game_data)
     end
   end
@@ -39,7 +39,7 @@ class CubeGame
     game = Game.new
 
     # cut out game id from the string
-    game_key = unstructured_game_data.slice!(/^Game \d+\:/)
+    game_key = unstructured_game_data.slice!(/^Game \d+:/)
     game.id = game_key.slice!(/\d+/).to_i
 
     cube_count_by_set_and_color = unstructured_game_data.split(";") # ["blue 1, green 1", "green 1, red 1"]
@@ -54,7 +54,7 @@ class CubeGame
 
         color = cube_count_by_color.match(/\D+/x)[0].strip
         count = cube_count_by_color.match(/\d+/x)[0].strip.to_i
-        
+
         cube_set.public_send("#{color}=", count)
       end
 
