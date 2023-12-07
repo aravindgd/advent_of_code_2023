@@ -1,4 +1,4 @@
-gear_ratios/symbol_finder.rbmodule SymbolFinder
+module SymbolFinder
   def index_of_symbols(row:)
     row.map.with_index do |current_character, index|
       # is an integer or "."
