@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GearRatios
+class EngineParts
   def initialize(input)
     @input = input
     @part_numbers = []

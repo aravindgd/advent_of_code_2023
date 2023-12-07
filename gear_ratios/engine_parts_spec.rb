@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'rspec'
-require_relative './gear_ratios'
+require "rspec"
+require_relative "engine_parts"
 
-describe GearRatios do
+describe EngineParts do
   subject { described_class.run(input) }
 
   let(:input) do
