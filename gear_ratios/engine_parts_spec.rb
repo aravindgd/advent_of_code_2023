@@ -26,7 +26,9 @@ end
 
 describe SchematicRow do
   describe ".find_numbers_next_to_symbol" do
-    subject { described_class.new(row:, previous_row: nil).find_numbers_next_to_symbol }
+    subject { described_class.new(row:, previous_row:).part_numbers }
+
+    let(:previous_row) { nil }
 
     context "when symbol is after numbers" do
       let(:row) do
@@ -77,12 +79,8 @@ describe SchematicRow do
         expect(subject).to eq []
       end
     end
-  end
 
-  describe ".find_numbers_in_previous_row_by_symbol_in_row" do
-    subject { described_class.new(row:, previous_row:).find_numbers_in_previous_row_by_symbol_in_row }
-
-    context "when symbol has a diagonal number one spot before" do
+    context "when symbol has a diagonal number one spot before in previous row" do
       let(:row) do
         "...*......"
       end
@@ -96,7 +94,7 @@ describe SchematicRow do
       end
     end
 
-    context "when symbol has a diagonal number one spot after" do
+    context "when symbol has a diagonal number one spot after in previous row" do
       let(:row) do
         "...*......"
       end
@@ -110,7 +108,7 @@ describe SchematicRow do
       end
     end
 
-    context "when symbol has a diagonal number one spot before and one spot after" do
+    context "when symbol has a diagonal number one spot before and one spot after in previous row" do
       let(:row) do
         "...*......"
       end
@@ -124,7 +122,7 @@ describe SchematicRow do
       end
     end
 
-    context "when symbol has a straight opposite number" do
+    context "when symbol has a straight opposite number in previous row" do
       let(:row) do
         "...*......"
       end
@@ -138,7 +136,7 @@ describe SchematicRow do
       end
     end
 
-    context "when symbol has no diagonal or opposite number" do
+    context "when symbol has no diagonal or opposite number in previous row" do
       let(:row) do
         "...*......"
       end
