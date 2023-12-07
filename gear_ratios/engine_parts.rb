@@ -45,28 +45,28 @@ class SchematicRow
 
   def part_numbers
     @part_numbers ||= [
-      find_numbers_based_on_row,
-      find_numbers_based_on_previous_row
+      find_numbers_based_on_symbols_in_row,
+      find_numbers_based_on_symbols_in_previous_row
     ].flatten.compact.reject(&:empty?)
   end
 
   private
 
-  def find_numbers_based_on_row
+  def find_numbers_based_on_symbols_in_row
     index_of_symbols(row: structured_row) do |symbol_index|
       [
         extract_part_number_ending_at(row: structured_row, index: symbol_index - 1),
         extract_part_number_starting_from(row: structured_row, index: symbol_index + 1),
-        extract_part_number_from_row(row: structured_previous_row, index: symbol_index)
+        extract_part_numbers_from_row(row: structured_previous_row, index: symbol_index)
       ]
     end
   end
 
-  def find_numbers_based_on_previous_row
+  def find_numbers_based_on_symbols_in_previous_row
     return [] if previous_row.nil?
 
     index_of_symbols(row: structured_previous_row) do |symbol_index|
-      extract_part_number_from_row(row: structured_row, index: symbol_index)
+      extract_part_numbers_from_row(row: structured_row, index: symbol_index)
     end
   end
 

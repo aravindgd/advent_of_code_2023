@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
+require_relative "part_number_finder"
+
 module PartNumberExtractor
-  def extract_part_number_from_row(row:, index:)
+  include PartNumberFinder
+
+  def extract_part_numbers_from_row(row:, index:)
     return [] if row.nil?
 
-    # values at indices -1, 0, 1 from the index of symbol of the base row
-    indices = [index - 1, index, index + 1]
-
-    return unless row.values_at(*indices).any? { |character| character.match?(/\d/) }
+    return [] unless has_part_number_at_or_next_to?(row:, index:)
 
     previous_characters = extract_part_number_ending_at(row:, index: index - 1)
     exact_opposite_character = row[index]
@@ -15,10 +16,12 @@ module PartNumberExtractor
 
     if exact_opposite_character.match?(/\d/)
       [
-        previous_characters,
-        exact_opposite_character,
-        next_characters
-      ].join
+        [
+          previous_characters,
+          exact_opposite_character,
+          next_characters
+        ].join
+      ]
     else
       [
         previous_characters,
