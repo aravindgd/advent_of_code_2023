@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "rspec"
-require_relative "card_worth_calculator"
+require_relative "scratch_card_hand"
 
-describe CardWorthCalculator do
-  subject { described_class.run(input) }
-
+describe ScratchCardHand do
   let(:input) do
     <<~EOS
       Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
@@ -17,7 +15,19 @@ describe CardWorthCalculator do
     EOS
   end
 
-  it "returns the gear ratio" do
-    expect(subject).to eq 13
+  describe "#total_points" do
+    subject { described_class.total_points(input) }
+
+    it "returns the total points" do
+      expect(subject).to eq 13
+    end
+  end
+
+  describe "#number_of_cards_owned" do
+    subject { described_class.number_of_cards_owned(input) }
+
+    it "returns the total number of card sets won" do
+      expect(subject).to eq 30
+    end
   end
 end
