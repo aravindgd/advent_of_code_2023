@@ -1,12 +1,8 @@
-# frozen_string_literal: true
-
 require "rspec"
 
-require_relative "closest_planting_location_finder"
-require_relative "planting_map_builder"
 require_relative "seeds_builder"
 
-describe ClosestPlantingLocationFinder do
+describe SeedsBuilder do
   let(:input) do
     <<~EOS
       seeds: 79 14 55 13
@@ -45,14 +41,11 @@ describe ClosestPlantingLocationFinder do
     EOS
   end
 
-  context "when treating each number in seeds input as a seed number" do
-    let(:subject) { described_class.run(seeds:, planting_maps:) }
+  describe ".from_input_v1" do
+    let(:subject) { described_class.from_input_v1(input) }
 
-    let(:seeds) { SeedsBuilder.from_input_v1(input) }
-    let(:planting_maps) { PlantingMapBuilder.from_input(input) }
-
-    it "returns the closest location to plant" do
-      expect(subject).to eq 35
+    it "returns the seeds" do
+      expect(subject).to eq [79, 14, 55, 13]
     end
   end
 end

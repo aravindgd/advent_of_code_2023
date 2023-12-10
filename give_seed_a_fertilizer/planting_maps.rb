@@ -3,13 +3,11 @@
 module PlantingMaps
   class BaseMap
     def self.build_from_map_lines_input(map_lines_input)
-      map_lines = map_lines_input.map do |line|
-        destination_range_start, source_range_start, range = line.split
-
-        MapLine.new(destination_range_start:, source_range_start:, range:)
+      map_lines = map_lines_input.map do |input|
+        MapLine.new(**input)
       end
 
-      new(map_lines: map_lines)
+      new(map_lines:)
     end
 
     attr_reader :map_lines
