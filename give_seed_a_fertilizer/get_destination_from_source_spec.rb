@@ -1,16 +1,15 @@
 require "rspec"
 require_relative "get_destination_from_source"
-require_relative "planting_maps"
 
 describe GetDestinationFromSource do
   describe ".run" do
-    let(:subject) { described_class.run(source:, planting_map:) }
+    let(:subject) { described_class.run(source:, map:) }
 
-    let(:planting_map) do
-      PlantingMaps::SeedToSoilMap.new(
+    let(:map) do
+      SeedToSoilMap.new(
         map_lines: [
-          PlantingMaps::MapLine.new(source_range_start: 98, destination_range_start: 50, range: 2),
-          PlantingMaps::MapLine.new(source_range_start: 50, destination_range_start: 52, range: 48)
+          MapLine.new(destination_range_start: 98, source_range_start: 50, range: 2),
+          MapLine.new(destination_range_start: 50, source_range_start: 52, range: 48)
         ]
       )
     end
@@ -19,7 +18,7 @@ describe GetDestinationFromSource do
       let(:source) { 79 }
 
       it "returns the destination number for the given source number" do
-        expect(described_class.run(source:, planting_map:)).to eq 81
+        expect(described_class.run(source:, map:)).to eq 81
       end
     end
 
@@ -27,7 +26,7 @@ describe GetDestinationFromSource do
       let(:source) { 3 }
 
       it "returns the source number" do
-        expect(described_class.run(source:, planting_map:)).to eq 3
+        expect(described_class.run(source:, map:)).to eq 3
       end
     end
   end

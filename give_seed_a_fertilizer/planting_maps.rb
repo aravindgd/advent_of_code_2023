@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "../range_utils"
+
 module PlantingMaps
   class BaseMap
     def self.build_from_map_lines_input(map_lines_input)
@@ -36,6 +38,8 @@ module PlantingMaps
   end
 
   class MapLine
+    using RangeUtils
+
     attr_reader :destination_range_start, :source_range_start, :range
 
     def initialize(source_range_start:, destination_range_start:, range:)
@@ -45,11 +49,11 @@ module PlantingMaps
     end
 
     def destination_range
-      @destination_range ||= destination_range_start..(destination_range_start + range - 1)
+      @destination_range ||= Range.build_from_size(destination_range_start, range)
     end
 
     def source_range
-      @source_range ||= source_range_start..(source_range_start + range - 1)
+      @source_range ||= Range.build_from_size(source_range_start, range)
     end
   end
 

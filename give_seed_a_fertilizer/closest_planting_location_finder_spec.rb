@@ -45,7 +45,7 @@ describe ClosestPlantingLocationFinder do
     EOS
   end
 
-  context "when treating each number in seeds input as a seed number" do
+  context "when working with a collection of seeds" do
     let(:subject) { described_class.run(seeds:, planting_maps:) }
 
     let(:seeds) { SeedsBuilder.from_input_v1(input) }
@@ -53,6 +53,17 @@ describe ClosestPlantingLocationFinder do
 
     it "returns the closest location to plant" do
       expect(subject).to eq 35
+    end
+  end
+
+  context "when working with a collection of seed ranges" do
+    let(:subject) { described_class.run(seeds:, planting_maps:, seed_range: true) }
+
+    let(:seeds) { SeedsBuilder.from_input_v2(input) }
+    let(:planting_maps) { PlantingMapBuilder.from_input(input) }
+
+    it "returns the closest location to plant" do
+      expect(subject).to eq 46
     end
   end
 end
